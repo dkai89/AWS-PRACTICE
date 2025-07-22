@@ -1,0 +1,902 @@
+बहुत बढ़िया! आपने जिस तरह RDS और EC2 के साथ Node.js ऐप सेटअप किया, उसी तरह अब आप **DynamoDB** का एक Beginner-Friendly, Step-by-Step **Lab Demo** चाहते हैं — ठीक उसी style में जैसे हमने पहले किया था।
+
+यह रहा पूरा **DynamoDB Practical Lab Demo** beginners के लिए, video transcription पर आधारित:
+
+---
+
+# 💡 DynamoDB Lab Demo – Beginner Friendly (Hindi Explanation)
+
+## 🧠 Overview:
+
+* DynamoDB: AWS की **fully managed NoSQL database service** है।
+* यह **serverless**, **auto-scalable**, और **flexible** schema वाली database होती है।
+* इसमें data JSON-like format (key-value pairs) में store होता है।
+
+---
+
+## 🔧 Step-by-Step Practical Lab:
+
+---
+
+### 🟢 Step 1: AWS Console में Login करें
+
+1. **[https://console.aws.amazon.com/](https://console.aws.amazon.com/)** पर जाएं।
+2. अपना **AWS account** credentials से login करें।
+
+---
+
+### 🟢 Step 2: DynamoDB Console खोलें
+
+1. Search bar में **DynamoDB** type करें और क्लिक करें।
+2. आप "Managed NoSQL database" वाले section में पहुँच जाएंगे।
+
+---
+
+### 🟢 Step 3: Create DynamoDB Table
+
+1. **"Create Table"** बटन पर क्लिक करें।
+2. Fill details:
+
+   * **Table Name**: `contacts`
+   * **Partition key**: `id`
+
+     * Type: String
+3. बाकी default settings रहने दें।
+4. नीचे जाकर **Create Table** पर क्लिक करें।
+
+➡️ आपकी table बन जाएगी और कुछ सेकंड में “Active” दिखेगा।
+
+---
+
+### 🟢 Step 4: Add Items (Manually)
+
+अब हम manually data add करेंगे:
+
+1. Table में क्लिक करें → **Explore Table Items**
+2. Right side में **Create Item** पर क्लिक करें।
+3. JSON format में data add करें:
+
+```json
+{
+  "id": "01",
+  "userName": "Raju"
+}
+```
+
+➡️ **Create Item** पर क्लिक करें।
+
+फिर दूसरा item add करें:
+
+```json
+{
+  "id": "02",
+  "userName": "Shyam",
+  "age": 30
+}
+```
+
+➡️ DynamoDB flexible है, हर item का schema अलग हो सकता है।
+
+---
+
+### 🟢 Step 5: Table Explore / Read Items
+
+* आप Explore Table Items में जाकर सभी items को देख सकते हैं।
+* हर item को individually open करके update भी कर सकते हैं।
+
+---
+
+### 🛠️ Step 6: Important DynamoDB Features
+
+| Feature               | Explanation                                   |
+| --------------------- | --------------------------------------------- |
+| **Serverless**        | आपको server/infra manage नहीं करना            |
+| **Auto-scaling**      | Read/Write requests के हिसाब से scale होता है |
+| **No cost when idle** | Zero activity = zero cost                     |
+| **Flexible schema**   | हर row अलग-अलग format में हो सकती है          |
+
+---
+
+### 🟠 Advanced Info (Optional – Read/Write Capacity):
+
+* DynamoDB दो mode देता है:
+
+  * **On-Demand**: Pay-per-request (Good for low traffic)
+  * **Provisioned**: Fixed Read/Write capacity (Good for steady workloads)
+* Auto-scaling enabled होने पर min/max capacity सेट कर सकते हैं।
+
+---
+
+## ✅ Sample Use Case:
+
+मान लीजिए, आप एक **Contacts Management App** बना रहे हैं:
+
+| ID | userName | age |
+| -- | -------- | --- |
+| 01 | Raju     | —   |
+| 02 | Shyam    | 30  |
+
+आप future में email, phone number या address भी डाल सकते हैं — कोई issue नहीं क्योंकि DynamoDB flexible schema allow करता है।
+
+---
+
+## 🚀 आगे क्या करें?
+
+1. आप Node.js या Python app से DynamoDB connect कर सकते हैं (AWS SDK).
+2. AWS Lambda के साथ भी जोड़ सकते हैं — जिससे **serverless API** बना सकते हैं।
+
+---
+
+## 📘 Lab Summary (Quick Recap)
+
+| Step | Task                                            |
+| ---- | ----------------------------------------------- |
+| 1️⃣  | AWS Login                                       |
+| 2️⃣  | DynamoDB Console में जाएं                       |
+| 3️⃣  | Table बनाएं (`contacts`, `id` as Partition Key) |
+| 4️⃣  | Items manually add करें                         |
+| 5️⃣  | Explore & update items                          |
+| 6️⃣  | Auto-scaling और On-Demand pricing समझें         |
+
+---
+
+## 📎 Tips
+
+* 25 GB तक storage और 200 मिलियन request/month तक DynamoDB **Free Tier** में आता है।
+* Perfect for small apps, MVPs, or learning projects.
+
+---
+
+अगर आप चाहें, मैं इस setup के लिए एक **Node.js code sample** भी बना सकता हूं जो DynamoDB से CRUD operations करे।
+
+क्या आपको वो भी चाहिए?
+
+---
+
+2nd=============================================================================================
+
+बहुत बढ़िया! आपने RDS, EC2, Docker, Node.js और MySQL को लेकर एक कंप्लीट फुल-स्टैक क्लाउड बेस्ड प्रोजेक्ट किया है। अब जैसा आपने कहा, मैं आपको **step-by-step Bigger Friendly Lab Demo Notes** तैयार करके दे रहा हूँ — जो एक बार पढ़कर कोई भी स्टूडेंट या प्रैक्टिस करने वाला फॉलो कर सकता है।
+
+---
+
+## 🚀 **Complete AWS EC2 + RDS + Node.js + Docker Lab Setup with MySQL**
+
+*Full Lab Demo Guide for Beginners in Simple Steps*
+
+---
+
+### 🔷 **1. RDS MySQL Database Setup**
+
+**✅ Step 1: AWS Console → RDS → Create Database**
+
+* Engine: MySQL
+* DB Name: `demoappdb`
+* Username: `admin`
+* Password: `password123`
+* DB Instance Size: Free Tier (`db.t3.micro`)
+* Storage: General Purpose (20GB)
+* Public Access: Yes
+* VPC Security Group: Open port 3306 for EC2
+
+📝 **Note**: Once created, copy the **endpoint**, e.g.:
+
+```bash
+database-1.cxumw2gemspm.eu-north-1.rds.amazonaws.com
+```
+
+---
+
+### 🔷 **2. EC2 Instance Setup (Amazon Linux)**
+
+**✅ Step 1: Launch EC2**
+
+* OS: Amazon Linux 2 AMI
+* Instance Type: t2.micro (Free Tier)
+* Key Pair: Create or Use existing
+* Allow: HTTP (80), HTTPS (443), SSH (22)
+
+**✅ Step 2: Connect to EC2**
+
+```bash
+ssh -i your-key.pem ec2-user@<your-public-ip>
+```
+
+---
+
+### 🔷 **3. Install Docker & Git on EC2**
+
+```bash
+sudo yum update -y
+sudo yum install docker git -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker ec2-user
+```
+
+🔁 **Logout and Login Again to apply docker permissions**
+
+---
+
+### 🔷 **4. Setup Node.js + MySQL App (Git Clone)**
+
+```bash
+git clone https://github.com/YOUR-REPO/node-mysql-app.git
+cd node-mysql-app
+```
+
+👉 Inside app directory, you should have:
+
+* `Dockerfile`
+* `package.json`
+* `index.js` (or `app.js`)
+* `.env` (Create if not exists)
+
+---
+
+### 🔷 **5. Dockerfile Sample (if you want to write manually)**
+
+```Dockerfile
+FROM node:18
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "index.js"]
+```
+
+---
+
+### 🔷 **6. Create `.env` File for MySQL Connection**
+
+```env
+DB_HOST=database-1.cxumw2gemspm.eu-north-1.rds.amazonaws.com
+DB_USER=admin
+DB_PASSWORD=password123
+DB_NAME=demoappdb
+```
+
+---
+
+### 🔷 **7. Build and Run Docker Container**
+
+```bash
+sudo docker build -t node-mysql-app .
+sudo docker run -d -p 3000:3000 --env-file .env node-mysql-app
+```
+
+✅ Visit `http://<your-ec2-ip>:3000`
+
+---
+
+### 🔷 **8. Sample SQL Table for Web App**
+
+```sql
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255),
+  email VARCHAR(255)
+);
+```
+
+---
+
+### 🔷 **9. Node.js Express APIs Example**
+
+**POST /users**
+
+```javascript
+app.post("/users", (req, res) => {
+  const { name, email } = req.body;
+  db.query("INSERT INTO users (name, email) VALUES (?, ?)", [name, email], (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.send("User added");
+  });
+});
+```
+
+**GET /users**
+
+```javascript
+app.get("/users", (req, res) => {
+  db.query("SELECT * FROM users", (err, result) => {
+    if (err) return res.status(500).send(err);
+    res.json(result);
+  });
+});
+```
+
+---
+
+### 🔷 **10. SQL Queries for Testing**
+
+| Operation     | Query                                                                    |
+| ------------- | ------------------------------------------------------------------------ |
+| Insert User   | `INSERT INTO users (name, email) VALUES ('Rahul', 'rahul@example.com');` |
+| Get All Users | `SELECT * FROM users;`                                                   |
+| Update Email  | `UPDATE users SET email='new@example.com' WHERE id=1;`                   |
+| Delete User   | `DELETE FROM users WHERE id=1;`                                          |
+
+---
+
+### 🔷 **11. Troubleshooting Tips**
+
+* Check Security Group → Port 3306 Open for RDS
+* Use `telnet rds-endpoint 3306` from EC2 to test DB connectivity
+* Use logs:
+
+```bash
+sudo docker logs <container-id>
+```
+
+---
+
+### 🔷 **12. Bonus: Run MySQL Client on EC2 (Optional)**
+
+```bash
+sudo yum install mariadb105 -y
+mysql -h <RDS-ENDPOINT> -u admin -p
+```
+
+---
+
+### ✅ Summary Flow:
+
+```txt
+[User] → [Node.js Web App on EC2 (Docker)] → [MySQL on RDS]
+```
+
+---
+
+### 🧾 Final Notes:
+
+* Use `.env` file to avoid exposing credentials.
+* You can deploy this app on any cloud, just change the DB config.
+* Don't forget to shut down EC2 & RDS to save cost!
+
+---
+
+Would you like me to export this as a **PDF lab manual** or put it in **Notion/Markdown** format too?
+
+3rd=======================================================================================================
+
+यहां आपके लिए एक **बड़ा, beginner-friendly, step-by-step Lab Demo** तैयार किया गया है, जिसमें Node.js app को MySQL RDS और EC2 instance के साथ Docker के ज़रिए integrate करना सिखाया गया है। साथ ही web app में email data को add, update, delete करना और clean-up भी शामिल है।
+
+---
+
+# 💻 Full Lab Demo: Node.js + MySQL + Docker on AWS (EC2 + RDS)
+
+---
+
+## ✅ Objective:
+
+एक वेबसाइट बनाना जिसमें users (email, name) को **add / update / delete / show** किया जा सके। Data MySQL RDS में store होगा। Node.js app को EC2 instance में Docker के ज़रिए host किया जाएगा।
+
+---
+
+## 🔧 Step 1: AWS EC2 Instance बनाना (Amazon Linux 2)
+
+1. AWS Console → EC2 → **Launch instance**
+
+2. Name: `node-mysql-app`
+
+3. AMI: **Amazon Linux 2**
+
+4. Instance type: `t2.micro` (Free tier)
+
+5. Key pair: Create new OR use existing
+
+6. Network settings:
+
+   * Allow HTTP (80)
+   * Allow SSH (22)
+   * Allow Custom TCP 3306 (for MySQL testing if needed)
+
+7. Storage: Default 8GB
+
+8. Launch instance ✅
+
+---
+
+## 🔐 Step 2: SSH से EC2 में Connect करना
+
+```bash
+ssh -i mykey.pem ec2-user@<public-ip>
+```
+
+---
+
+## 🐳 Step 3: EC2 में Docker install करना
+
+```bash
+sudo yum update -y
+sudo amazon-linux-extras install docker -y
+sudo service docker start
+sudo usermod -aG docker ec2-user
+```
+
+Logout करें और दुबारा login करें ताकि Docker group apply हो जाए।
+
+---
+
+## 🧑‍💻 Step 4: Node.js App बनाना (Locally or EC2 में)
+
+`index.js`
+
+```js
+const express = require("express");
+const mysql = require("mysql2");
+const app = express();
+app.use(express.json());
+
+const db = mysql.createConnection({
+  host: "your-rds-endpoint",
+  user: "admin",
+  password: "yourpassword",
+  database: "contacts"
+});
+
+db.connect(err => {
+  if (err) throw err;
+  console.log("MySQL connected!");
+});
+
+// Add Contact
+app.post("/add", (req, res) => {
+  const { name, email } = req.body;
+  db.query("INSERT INTO users (name, email) VALUES (?, ?)", [name, email], err => {
+    if (err) return res.send(err);
+    res.send("User added!");
+  });
+});
+
+// Get All
+app.get("/contacts", (req, res) => {
+  db.query("SELECT * FROM users", (err, results) => {
+    if (err) return res.send(err);
+    res.json(results);
+  });
+});
+
+// Update
+app.put("/update/:id", (req, res) => {
+  const { name, email } = req.body;
+  db.query("UPDATE users SET name=?, email=? WHERE id=?", [name, email, req.params.id], err => {
+    if (err) return res.send(err);
+    res.send("Updated!");
+  });
+});
+
+// Delete
+app.delete("/delete/:id", (req, res) => {
+  db.query("DELETE FROM users WHERE id=?", [req.params.id], err => {
+    if (err) return res.send(err);
+    res.send("Deleted!");
+  });
+});
+
+app.listen(3000, () => console.log("Server running on port 3000"));
+```
+
+---
+
+## 📝 Step 5: MySQL RDS बनाना
+
+1. AWS → RDS → Create Database
+2. Engine: MySQL
+3. Name: `contacts`
+4. Username: `admin`, Password: `yourpassword`
+5. Public access: **Yes**
+6. VPC Security Group: Allow **3306** inbound
+
+After creation, copy **RDS endpoint**.
+
+---
+
+## 🛠️ Step 6: SQL Query से Table बनाएं
+
+MySQL से connect करें:
+
+```bash
+mysql -h <rds-endpoint> -u admin -p
+```
+
+Query run करें:
+
+```sql
+CREATE DATABASE contacts;
+USE contacts;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100)
+);
+```
+
+---
+
+## 📦 Step 7: Dockerfile बनाएं
+
+`Dockerfile`:
+
+```Dockerfile
+FROM node:18
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "index.js"]
+```
+
+---
+
+## 🐳 Step 8: Docker Image Build + Run
+
+```bash
+docker build -t node-mysql-app .
+docker run -d -p 80:3000 --name myapp node-mysql-app
+```
+
+---
+
+## 🌐 Step 9: Website Access करना
+
+Browser में EC2 का Public IP डालें:
+
+```
+http://<your-ec2-public-ip>
+```
+
+API Endpoints:
+
+* POST `/add` — Add user
+* GET `/contacts` — Show users
+* PUT `/update/:id` — Update
+* DELETE `/delete/:id` — Delete
+
+Use Postman or curl to test:
+
+```bash
+curl -X POST http://<public-ip>/add -H "Content-Type: application/json" -d '{"name":"Babu Rao","email":"babu@tmail.com"}'
+```
+
+---
+
+## 🔐 Step 10: Clean-Up
+
+1. **Terminate EC2 Instance**
+2. **Delete RDS database**
+3. **Delete IAM Roles/Access Keys**
+4. Monitor **Cost & Usage** from AWS Console.
+
+---
+
+## 📚 Extra Knowledge: IAM Role + DynamoDB + DAX (Optional Topics)
+
+* EC2 से DynamoDB access करना है तो IAM Role बनाकर EC2 से attach करें (e.g. `DynamoDBFullAccess`)
+* DAX = DynamoDB Accelerator (in-memory caching, 10x performance)
+* Global Tables = Multi-region replication for high availability
+
+---
+
+## 🧠 Summary
+
+| Component         | Description                     |
+| ----------------- | ------------------------------- |
+| EC2               | App hosting                     |
+| RDS MySQL         | Backend database                |
+| Docker            | Containerize Node app           |
+| Node.js + Express | REST API                        |
+| CRUD API          | Add, Update, Delete, List users |
+
+---
+
+## 🎯 Practice Tips
+
+* बार-बार EC2 create/terminate कर के practice करें
+* RDS में queries manually और programmatically दोनों से चलाएं
+* IAM Role से secure access try करें (DynamoDB वाला पार्ट)
+* Docker Compose use करके multi-container deploy भी practice करें
+
+---
+
+अगर चाहें तो मैं इसके लिए एक पूरा GitHub repo structure भी बना सकता हूँ जिसमें `index.js`, `Dockerfile`, `package.json`, और `README` भी होगा। बताएं तो बना दूं ✅
+
+COMPLETE WORKFLOW==================================================================================================================
+===================================================================================================================================
+
+
+बहुत अच्छा काम किया आपने! आपने जो 28 मिनट की YouTube वीडियो की transcription दी है (tukdo me), उसके आधार पर मैं अब आपको एक **पूरा beginner-friendly lab demo** दे रहा हूँ। ये demo इस पूरे workflow को कवर करेगा — जैसे आपके teacher ने web app बनाया जिसमें user का email add, update, delete होता है, और जो backend में AWS EC2, RDS, Node.js, Docker से जुड़ा हुआ है।
+
+---
+
+# ✅ Complete Beginner-Friendly AWS Fullstack Demo Lab
+
+### 📦 Tech Stack Used:
+
+* AWS EC2 (Linux)
+* AWS RDS (MySQL)
+* Node.js (Express.js App)
+* Docker
+* MySQL CLI
+* VS Code (for local dev)
+* GitHub (optional)
+
+---
+
+## 🛠️ Lab Goals:
+
+* ✅ Create EC2 instance
+* ✅ Install Docker and Git on EC2
+* ✅ Create RDS MySQL DB
+* ✅ Connect Node.js App (Dockerized) to RDS
+* ✅ Create Web App to perform CRUD on `users` table
+* ✅ Host App via EC2 (port 80)
+* ✅ Test App using Browser and MySQL queries
+
+---
+
+## 🔰 Step-by-Step Lab Workflow
+
+---
+
+### 🟢 Step 1: Create AWS RDS (MySQL)
+
+1. Go to AWS → RDS → **Create database**
+2. Select **Standard create**
+3. Engine type: `MySQL`
+4. Version: `8.0.x`
+5. DB Instance Identifier: `database-1`
+6. Master Username: `admin`
+7. Master Password: `Admin12345` (for lab demo)
+8. Instance class: `db.t3.micro` (Free Tier)
+9. Storage: 20 GB
+10. Uncheck “Enable storage autoscaling”
+11. VPC: Select default
+12. Subnet group: default
+13. Public access: **Yes**
+14. VPC security group: Create new or allow all inbound MySQL (3306)
+15. DB Port: `3306`
+16. Click **Create database**
+
+👉 Wait 5–10 mins. Copy **endpoint**, e.g.:
+`database-1.cxumw2gemspm.eu-north-1.rds.amazonaws.com`
+
+---
+
+### 🟢 Step 2: Launch EC2 Instance
+
+1. Go to AWS EC2 → Launch instance
+2. Name: `node-app`
+3. AMI: Amazon Linux 2
+4. Instance type: `t2.micro`
+5. Key pair: Select or create
+6. Security group: Allow
+
+   * SSH (22) — your IP
+   * HTTP (80) — anywhere
+   * MySQL (3306) — anywhere (lab only)
+7. Click Launch
+
+✅ Once launched, click **Connect** and SSH into instance:
+
+```bash
+ssh -i your-key.pem ec2-user@your-public-ip
+```
+
+---
+
+### 🟢 Step 3: Install Git, Docker & MySQL client
+
+```bash
+sudo yum update -y
+sudo yum install git -y
+sudo yum install docker -y
+sudo service docker start
+sudo usermod -aG docker ec2-user
+exit   # logout and login again
+```
+
+```bash
+# Reconnect after logout
+ssh -i your-key.pem ec2-user@your-ip
+```
+
+---
+
+### 🟢 Step 4: Clone Node.js + MySQL App from GitHub
+
+```bash
+git clone https://github.com/your-repo/node-mysql-app.git
+cd node-mysql-app
+```
+
+📁 Your folder should contain:
+
+* `Dockerfile`
+* `index.js`
+* `package.json`
+* `db.js`
+
+---
+
+### 🟢 Step 5: Edit db.js with RDS endpoint
+
+```js
+// db.js
+const mysql = require("mysql");
+const connection = mysql.createConnection({
+  host: "database-1.cxumw2gemspm.eu-north-1.rds.amazonaws.com",
+  user: "admin",
+  password: "Admin12345",
+  database: "practice_db",
+});
+module.exports = connection;
+```
+
+---
+
+### 🟢 Step 6: Create Dockerfile
+
+```Dockerfile
+FROM node:18
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "index.js"]
+```
+
+---
+
+### 🟢 Step 7: Build and Run Docker Container
+
+```bash
+docker build -t node-mysql-app .
+docker run -d -p 80:3000 node-mysql-app
+```
+
+✅ Check running container:
+
+```bash
+docker ps
+```
+
+Test in browser:
+`http://<your-ec2-public-ip>`
+→ You should see homepage (like: `Welcome to user system`)
+
+---
+
+### 🟢 Step 8: Install MySQL client on EC2
+
+```bash
+sudo amazon-linux-extras enable mariadb10.5
+sudo yum install mariadb -y
+```
+
+Connect to RDS:
+
+```bash
+mysql -h database-1.cxumw2gemspm.eu-north-1.rds.amazonaws.com -u admin -p
+# Enter password: Admin12345
+```
+
+---
+
+### 🟢 Step 9: Create Database and Table
+
+```sql
+CREATE DATABASE practice_db;
+USE practice_db;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50),
+  email VARCHAR(100)
+);
+```
+
+---
+
+### 🟢 Step 10: Test App CRUD (Create, Read, Update, Delete)
+
+✅ Add User (POST)
+
+```bash
+curl -X POST -H "Content-Type: application/json" \
+-d '{"name":"Dilip","email":"dilip@example.com"}' \
+http://<EC2-IP>/users
+```
+
+✅ Read All Users (GET)
+
+```bash
+curl http://<EC2-IP>/users
+```
+
+✅ Update User (PUT)
+
+```bash
+curl -X PUT -H "Content-Type: application/json" \
+-d '{"name":"Updated","email":"new@example.com"}' \
+http://<EC2-IP>/users/1
+```
+
+✅ Delete User (DELETE)
+
+```bash
+curl -X DELETE http://<EC2-IP>/users/1
+```
+
+---
+
+## 📦 Bonus: index.js Sample Code
+
+```js
+const express = require("express");
+const app = express();
+const db = require("./db");
+app.use(express.json());
+
+app.get("/", (req, res) => res.send("Welcome to user system"));
+
+app.get("/users", (req, res) => {
+  db.query("SELECT * FROM users", (err, rows) => {
+    if (err) throw err;
+    res.send(rows);
+  });
+});
+
+app.post("/users", (req, res) => {
+  const { name, email } = req.body;
+  db.query("INSERT INTO users SET ?", { name, email }, (err, result) => {
+    if (err) throw err;
+    res.send("User added");
+  });
+});
+
+app.put("/users/:id", (req, res) => {
+  const { name, email } = req.body;
+  db.query("UPDATE users SET ? WHERE id = ?", [{ name, email }, req.params.id], (err) => {
+    if (err) throw err;
+    res.send("User updated");
+  });
+});
+
+app.delete("/users/:id", (req, res) => {
+  db.query("DELETE FROM users WHERE id = ?", [req.params.id], (err) => {
+    if (err) throw err;
+    res.send("User deleted");
+  });
+});
+
+app.listen(3000, () => console.log("App running on port 3000"));
+```
+
+---
+
+## 📝 Final Checklist:
+
+| Task                     | Status |
+| ------------------------ | ------ |
+| EC2 instance setup       | ✅ Done |
+| Docker & Git installed   | ✅ Done |
+| Node.js app cloned       | ✅ Done |
+| RDS MySQL created        | ✅ Done |
+| App connected to RDS     | ✅ Done |
+| Docker container running | ✅ Done |
+| CRUD tested with `curl`  | ✅ Done |
+
+---
+
+### 📁 Want this as PDF Notes?
+
+Just say: **"Make PDF of this lab"**
+
+Or if you want to deploy this **with UI (React)** or **on GitHub**, I’ll guide you next.
+
+आप तैयार हैं अगले स्टेप के लिए?
