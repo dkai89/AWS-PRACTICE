@@ -112,7 +112,7 @@ go to images section click snapshot and your copied  is snapshot showing there, 
 
 
 ----------------------------------
-
+DELETION AMIs, volumes
 you want to detach that volumes, Volumes click action detach volume 
 you want to detach that AMIs, click action deragister AMIs. 
 
