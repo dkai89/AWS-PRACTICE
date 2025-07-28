@@ -1,0 +1,16 @@
+When you have instance and you want to assign one elastice IP so that the instance public IP will be constant, does not change any time.
+Go to ec2 service, in left cornor scroll down , in Network & Security section click of Elastice Ips 
+to create elastic IP 
+click on Allocate Elastic IP address which is present right top cornor.
+here is one importance factor was that network border group 
+click on Allocate
+and elastice ip created.
+To assign with an instance select those ip 
+Click on action (Elastic IP addresses section)
+click Associate Elastic IP address 
+Instance (select your instance) 
+Private IP address (select private ip of that instance)
+click on Associate
+now this massage showing (Elastic IP address associated successfully.)
+now go to your instance and check whether it is allocated or not. if not just refresh those page you will see. at 
+Elastic IP addresses section.

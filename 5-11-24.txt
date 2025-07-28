@@ -1,0 +1,121 @@
+root volume is that volume in which os are stored
+our ebs volume (persistent volume),attached by network to our server.instance storage is temporarry storage.
+encrypted means when someone hack your server so your data we in the form of machine language, the hacker can not be read our data.
+ami's are used as backups and there like har kisi ke saath adjust ho jati hai chahe uska reason alag kyu na ho what inside store in that amis,
+automatically going forward to new instance of any region
+amis contain os system, backups, some preinstall software and detail about snapshorts. 
+when you terminate your instance the root volume will be deleted but your attach volume not deleted.
+
+
+EBS is that volume which are restricted to your instance. It have fixed storage whether you store 1gb of data,
+and need to select 8gb or 4 gb according to your work.
+EBS has os data some software data and some working data.
+
+when you need more storage, You need to create a volume, Step are given down.
+click on Elastic Block Store (which is located at left down cornor (EC2) ).
+click volume
+click on create volume
+Size (GiB)
+10
+ **Availability Zone** (according to your availability zone choose it ) this is very very import option.
+ap-south-1a (mumbai) 
+click on Create volume
+this massage (Successfully created volume vol-0b4d49fc28e1ce3d0.) will be showing.
+you want to associate this volume with your instance, select those volume 
+click action 
+click attach volume 
+Instance
+select you instance
+Device name (you choose any of them in list)
+/dev/sdb
+Attach volume
+
+go to your instace select those instance drop down
+in storage section 
+see Block devices
+here you you new volume showing along with root volume.
+Note :- Delete on termination(Yes or No) means that Yes means when you delete your instance, your stored data detele with it.
+No mean data wil be safe not delete when you terminate your instance.
+
+**If you want to use those storage you need to mount with your instance.
+so Connect your instance apply some commands that is given below.
+
+lsblk -f (To see the storages)
+df -h
+sudo mkfs -t xfs /dev/xvdb
+lsblk -f
+sudo mkdir /data
+sudo mount /dev/xvdb /data
+:::: Now you will see the mountpoints that you'll successfully mounted.
+lsblk -f
+df -h
+::Now you will see the new storage are added to use.
+cd /data 
+sudo touch abs.txt
+ll 
+
+-------------------------------------------
+Create AMIs or Image to backup your instace 
+select instance
+click on action
+click on image and templates
+click on create image
+
+Image name
+:-backuuu (give according to you, what you want  to given)
+Image description - optional
+this_is_my_945_727_backup
+click on create image
+
+in Images section
+click on AMIs
+and your image showing now 
+Note this image are used further to made your instance if you want.
+
+if you want to copy this image in any other region to use when you make your instance.
+
+select image 
+click on action
+click copy AMI
+choose Destination Region
+drop down 
+click on Copy AMI
+if you want check that whether it is copied successfully go to that region 
+go to images section click AMIs and your copied AMIs is showing there, you can use it.
+----------------------------
+
+Now to create backups, In other words called snapshot
+Go to this  Elastic Block Store section.
+click on snapshot (Note:- this is a time based snapshot).
+clic on Create snapshot
+Resource type
+choose ( volume or instance)
+i choose instace
+
+Instance ID (choose instace Id)
+
+Snapshot details
+Description
+instace (whatever you want to write)
+click on Create snapshot
+if you want to copy that snapshot for use in any region 
+just simpaly select those snapshot 
+click on action 
+select copy snapshot
+
+select your Destination Region (In which region you want to copied)
+click on Copy snapshot
+if you want check that whether it is copied successfully go to that region 
+go to images section click snapshot and your copied  is snapshot showing there, you can use it.
+
+
+
+----------------------------------
+
+you want to detach that volumes, Volumes click action detach volume 
+you want to detach that AMIs, click action deragister AMIs. 
+
+If you want to delete snapshot select snapshot 
+click action 
+click on delete snapshot
+delete 
