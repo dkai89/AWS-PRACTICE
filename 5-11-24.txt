@@ -11,6 +11,7 @@ EBS is that volume which are restricted to your instance. It have fixed storage 
 and need to select 8gb or 4 gb according to your work.
 EBS has os data some software data and some working data.
 
+DEMO :--
 when you need more storage, You need to create a volume, Step are given down.
 click on Elastic Block Store (which is located at left down cornor (EC2) ).
 click volume
