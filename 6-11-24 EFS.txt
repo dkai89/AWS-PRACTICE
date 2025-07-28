@@ -1,0 +1,35 @@
+EFS stands for Elastic file system. it means that when you create or used that file system
+you add the data into this file this file storage adjust according to your data size. NO need to 
+pre determined the size of that volume.
+To create EFS follow the below steps.
+
+Search EFS in your search bar 
+click on EFS
+click on Create file system
+Name - optional 
+buddy (this name given by your wish)
+Customize :- if you want to edit you efs system according to your use case then click this option, if not 
+click create file system 
+
+in Lifecycle management
+Transition into Infrequent Access (IA)
+14 day(s) since last access
+
+Transition into Archive
+90 day(s) since last access
+
+Transition into Standard
+On first access
+
+click next
+
+In Network access (NO need to changes, if your work with several or your own subnet or security group then you
+need to change).
+
+click next
+
+click next
+
+scroll down and click on create
+
+that's it...
