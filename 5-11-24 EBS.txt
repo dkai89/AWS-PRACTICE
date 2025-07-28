@@ -120,3 +120,6 @@ If you want to delete snapshot select snapshot
 click action 
 click on delete snapshot
 delete 
+
+
+END!!
