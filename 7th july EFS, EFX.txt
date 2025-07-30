@@ -1,0 +1,189 @@
+Firstly make Two instance by the following commands
+first give name 
+select os system, I choose Amazon Linux
+rest as it's.
+select intance type like t2.micro
+choose key pair
+rest as it's except Firewall( Security groups)
+In this select... Create Security group
+Right tick on Allow SSH Traffic from 
+Right tick on Allow HTTPS traffic from the internet
+Right tick on Allow HTTP traffic from the internet
+
+No need to Configure Storage 
+In summery section 
+Number of instances 
+2
+
+click on Launch instance
+
+rename both the instance and give the names like 1 & 2.
+then connect the both 
+
+after that search "security groups" on search bar. (for EC2 Future).
+click on which Security group ID who connect to your instances.
+click on Edit inbound rules
+scroll down click add rule
+In Type select NFS.
+In Source select your instance source (Security group).
+rest as it is.
+Click on Save rules
+
+Apply the the below commands your both instances. one by one. 
+df -h
+sudo yum install -y amazon-efs-utils
+
+on 1 instance 
+sudo mkdir /dir1
+on 2 instance
+sudo mkdir /dir2
+
+go to the EFS
+click on your already build EFS file.
+click on Attach ( here some commands showing )
+Copy the below command which is in the section of Using the EFS mount helper:
+
+sudo mount -t efs -o tls fs-04c703b2c5bdb1a12:/ efs (edit efs as /dir1 for 1 and /dir2 for 2.)
+then apply above command after edit.
+wait for some time until the new command line opens in the terminal.
+
+df -h 
+
+you will see the dir1 on 1 instance has been mounted successfully.
+
+df -h 
+
+you will see the dir2 on 2 instance has been mounted successfully.
+
+In instance 2
+cd /dir2
+sudo touch hello.txt
+ls
+
+Go to your instance 1
+cd /dir1
+ls
+you will see the hello.txt 
+
+So You think you made the file on the instance 2 in /dir2 But It is also showing
+in /dir1 without any make file. Therefore, It means that, EFS share the data because you have only
+one EFS file system which attached with both the instances so It is happening.
+Note:- It is only used with Linux Operating System 
+
+------------------------------------------------------------------------------------------
+
+Amazon FSx (It used with varity of systems and it very fast, reliable)
+
+Go to search bar and search FSx
+click on Create file system
+In File system options choose 
+
+Amazon FSx for Lustre
+
+click next
+
+File system name - optional
+name as you wish, I give buddy
+
+Deployment and storage class
+Persistent, SSD
+uncheck with EFA enabled (if checked)
+
+Storage capacity
+1.2
+
+Data compression type
+LZ4
+
+VPC Security Groups
+choose your security groups with default security group.
+
+Subnet Info
+check this, if it is right Zone then no need to change if not then change it.
+
+Search the security group, in the search bar. and right click on it. open in new tap .
+kind in mind click only on EC2 security group.
+click on Security group ID	
+
+Edit inbound rules
+
+click on add rule
+Type :- Custom TCP
+Port range :- 988
+Source type :- Custom
+source :- custom and select your security group
+
+click on add rule
+Type :- Custom TCP
+Port range :- 1018-1023
+Source type :- Custom
+source :- custom and select your security group
+
+save rules
+
+Go to you EFx 
+then click next
+Scroll down 
+click on Create file system
+
+click on file system ID
+
+click on Attach 
+
+Go to your 1 & 2 instance  and apply below command
+
+sudo dnf install -y lustre-client
+
+Go to your 1 instance and apply below command
+sudo mkdir /fsx1
+sudo mount -t lustre -o relatime,flock fs-08ec2a7a5d18259a1.fsx.ap-south-1.amazonaws.com@tcp:/ijwt3bev /fsx1
+df -h (you will see the /fsx1 on 1 instance has been mounted successfully)
+
+Go to you 2 instance apply below command
+sudo mkdir /fsx2
+sudo mount -t lustre -o relatime,flock fs-08ec2a7a5d18259a1.fsx.ap-south-1.amazonaws.com@tcp:/ijwt3bev /fsx2
+df -h (you will see the /fsx2 on 2 instance has been mounted successfully)
+
+Go to your 2 instance and  apply below commnads
+cd /fsx2/
+sudo touch file123.txt
+ls
+
+Go to your 1 instance and  apply below commnads
+cd /fsx1/
+
+ls
+
+you will see the file123.txt 
+
+So You think you made the file on the instance 2 in /Fsx2 But It is also showing
+in /FSx1 without any make file. Therefore, It means that, FSx share the data because you have only
+one FSx file system which attached with both the instances so It is happening.
+
+
+----------------------------------------------------------------------------
+on 1 instance For unmount the File system from your instance just apply the below commands. 
+
+
+df -h 
+cd
+
+sudo unmount /fsx1
+sudo unmount /dir1
+
+df -h 
+on 2 instance For unmount the File system from your instance just apply the below commands.
+
+df -h 
+cd
+
+sudo unmount /fsx1
+sudo unmount /dir1
+
+df -h
+
+then you will able to delete the file system .
+
+
+
+END!!
