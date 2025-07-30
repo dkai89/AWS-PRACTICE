@@ -1,0 +1,114 @@
+6th Nov 2024
+
+
+EFS stands for Elastic file system. it means that when you create or used that file system
+you add the data into this file this file storage adjust according to your data size. NO need to 
+pre determined the size of that volume.
+To create EFS follow the below steps.
+
+Search EFS in your search bar 
+click on EFS
+click on Create file system
+Name - optional 
+buddy (this name given by your wish)
+Customize :- if you want to edit you efs system according to your use case then click this option, if not 
+click create file system 
+
+in Lifecycle management
+Transition into Infrequent Access (IA)
+14 day(s) since last access
+
+Transition into Archive
+90 day(s) since last access
+
+Transition into Standard
+On first access
+
+click next
+
+In Network access (NO need to changes, if your work with several or your own subnet or security group then you
+need to change).
+
+click next
+
+click next
+
+scroll down and click on create
+
+that's it...
+
+
+7th Nov 2024
+
+
+Firstly make Two instance by the following commands
+first give name 
+select os system, I choose Amazon Linux
+rest as it's.
+select intance type like t2.micro
+choose key pair
+rest as it's except Firewall( Security groups)
+In this select... Create Security group
+Right tick on Allow SSH Traffic from 
+Right tick on Allow HTTPS traffic from the internet
+Right tick on Allow HTTP traffic from the internet
+
+No need to Configure Storage 
+In summery section 
+Number of instances 
+2
+
+click on Launch instance
+
+rename both the instance and give the names like 1 & 2.
+then connect the both 
+
+after that search "security groups" on search bar. (for EC2 Future).
+click on which Security group ID who connect to your instances.
+click on Edit inbound rules
+scroll down click add rule
+In Type select NFS.
+In Source select your instance source (Security group).
+rest as it is.
+Click on Save rules
+
+Apply the the below commands your both instances. one by one. 
+df -h
+sudo yum install -y amazon-efs-utils
+
+on 1 instance 
+sudo mkdir /dir1
+on 2 instance
+sudo mkdir /dir2
+
+go to the EFS
+click on your already build EFS file.
+click on Attach ( here some commands showing )
+Copy the below command which is in the section of Using the EFS mount helper:
+
+sudo mount -t efs -o tls fs-04c703b2c5bdb1a12:/ efs (edit efs as /dir1 for 1 and /dir2 for 2.)
+then apply above command after edit.
+wait for some time until the new command line opens in the terminal.
+
+df -h 
+
+you will see the dir1 on 1 instance has been mounted successfully.
+
+df -h 
+
+you will see the dir2 on 2 instance has been mounted successfully.
+
+In instance 2
+cd /dir2
+sudo touch hello.txt
+ls
+
+Go to your instance 1
+cd /dir1
+ls
+you will see the hello.txt 
+
+So You think you made the file on the instance 2 in /dir2 But It is also showing
+in /dir1 without any make file. Therefore, It means that, EFS share the data because you have only
+one EFS file system which attached with both the instances so It is happening.
+Note:- It is only used with Linux Operating System.
