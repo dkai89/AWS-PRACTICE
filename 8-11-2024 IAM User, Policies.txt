@@ -1,0 +1,117 @@
+IAM ( Idendtity and Access Manangement)
+this is used when you need to get some work from others, You must need to 
+access give your account access to the user whose you want to performe there work.
+So you need to create a IAM user, This user take some permission and access to tool which User used 
+and perform there work. User cant be access whose tool who you not permission.
+
+
+To create a IAM user step given below.
+
+Go to the search bar search IAM
+right click on it, Open a new tap .
+click on user, which is situated up left corner.
+click on create user
+User name:- give any name, what you want to have.
+checked the (Provide user access to the AWS Management Console - optional)
+
+Are you providing console access to a person?
+User type:- I want to create an IAM user
+
+Console password 
+select Custom password
+
+unchecked (Users must create a new password at next sign-in - Recommended)
+
+Next
+
+For now no to any changes in SET PERMISSION
+Next 
+Click Create user
+
+
+click on Download .csv file (for save the id and password into your system)
+
+
+To check this works whether your user access this.
+click on aws top right cornor. click add session.
+Login by IAM user data or copy your Console sign-in URL from you CSV file  and paste it on you browser
+
+https://167349173424.signin.aws.amazon.com/console (Copy your Id no.)
+
+
+Go you IAM user 
+click on your user
+then click add permissions
+click on add permission
+
+Permissions options
+select Attach policies directly
+
+select some  Policy name (like ec2full access).
+click next
+then click Add permissions
+
+Now check your user, You will see that your user can access your ec2 service.
+Here make a sample instance to perform further operations.
+
+(Policy is a bundle of permissions)
+
+Now We make a custom policy
+
+click on Policies 
+click on Create policy
+
+Select a service
+
+Service :- EC2
+Allow permission
+List :- chooseDescribeInstances
+Write :-RunInstances, StartInstances, StopInstances
+
+click on Add more permissions
+Allow permission
+Service:-EFS
+List :- DescribeFileSystems
+
+click on Add more permissions
+Service :- EC2
+Deny permission
+Write :- StopInstance
+
+Resources :- Specific
+click on Add ARNs
+Resource region :- your IAM user's region name, where you made your instance.
+Resource instance :- instance ID of you IAM user.
+click on Add ARNs
+
+Resources :- Specific
+click on Add ARNs
+Resource region :- your IAM user's region name, where you made your instance.
+Resource instance :- select any instance
+click on Add ARNs
+
+click on Next
+
+policy name :-- ply1
+Description :- This is my first policy 
+click on Create policy
+
+
+Go to your IAM user 
+click on your user
+remove your previous policy
+click on add permissions 
+click on add permission
+select Attach policies directly
+search your custom policy
+next 
+select that then click on add permission
+
+Go to your IAM user browser tap 
+then launch a sample instance again
+
+and then test your permission into your IAM user account. 
+start your instance, stop instance, run your instance.
+
+that it!!
+
