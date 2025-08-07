@@ -1,0 +1,531 @@
+CloudWatch :- it is a monitoring tool and also you can set the alarm to update your application performationo or any
+type of errors occurs during the running process.
+
+launch an instance
+
+Name:- cloudwatch 
+Network settings :- choose existing groups (launch-wizard-2)or choose Create security group(allow all Traffics like SSH HTTPs etc.) then they will create a new group.
+Expend Advanced details in last copy the below script and paste it in "User data - optional".
+
+#!/bin/bash
+sudo su
+yum update -y
+yum install httpd -y
+service httpd start
+chkconfig httpd on
+echo "Hello from AWS" > /var/www/html/index.html 
+
+after the above steps lauch your intance.
+
+search the cloudwatch on search bar.
+right click on cloudwatch and open link in new tap
+click on Alarm 
+click on All alarms
+click on Create alarm
+
+Metric
+click on Select metric
+click on EC2
+click on Per-Instance Metrics
+Copy your instance id and paste on search bar
+Scroll down and select CPUUtilization
+then click on Select metric
+
+Statistic :- Maximum
+
+Conditions
+Threshold type :-Static
+Whenever CPUUtilization is... :--> Greater/Equal
+than…:->80
+
+click next 
+
+Alarm state trigger:-In alarm
+Send a notification to the following SNS topic :-> Create new topic
+Create a new topic…:->> cpu_alarm_ring
+Email endpoints that will receive the notification…:->> kumardilip19828979@gmail.com
+click on Create topic
+
+after that go to your e-mail, open that mail and click on confirm subscription.
+
+EC2 action
+
+Alarm state trigger :->> In alarm
+
+Take the following action...:-->> Stop this instance
+
+Next
+
+Alarm name:-cpu_montering
+
+Next
+
+Alarm description - optional :->>>ALERT!  CPU UNTIL BREACHED
+
+Next
+
+click on Create alarm
+
+connect your instance and apply the below command many many time, repeat and repeat repeate...approx 100 plus times.
+
+sha1sum /dev/zero &  (this command is used for loading on your instance)
+I crossed [151] 27697.....
+
+after 5 mints of monitering they send you a mail , and stopped your instance automatically.
+
+>>> start your instance<<< Manually
+and connect those instance and apply some commands
+sudo su
+cd /var/log/httpd/
+ls -lstr
+tail -f access_log
+copy your public ip of your instance paste them into your browser 
+http://13.232.188.80
+Hello from AWS
+
+error lane ke liye / laga kar kuch bhi likhiye or enter mariye ye process bar bar kijiye with some other words.
+all error are showing in your instance live.
+
+http://13.232.188.80/monzilla
+
+Create a role with permisssion "cloudwatchlogsFullAccess"
+
+go to roles
+click on create role 
+
+Use case :- ec2
+next
+Permissions policies :- CloudWatchFullAccess
+next
+Role name :-cloudrole1
+Create role
+attach this role to your instance
+go to your intance select it 
+click on Actions
+click on Security
+click on Modify IAM role
+seach that role 
+select it and click on Update IAM role
+
+
+on instance terminal 
+wget https://amazoncloudwatch-agent.s3.us-east-1.amazonaws.com/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+
+sudo rpm -U ./amazon-cloudwatch-agent.rpm
+cd /opt/aws/amazon-cloudwatch-agent/
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+
+
+
+
+
+
+[root@ip-172-31-44-123 amazon-cloudwatch-agent]# sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+================================================================
+= Welcome to the Amazon CloudWatch Agent Configuration Manager =
+=                                                              =
+= CloudWatch Agent allows you to collect metrics and logs from =
+= your host and send them to CloudWatch. Additional CloudWatch =
+= charges may apply.                                           =
+================================================================
+On which OS are you planning to use the agent?
+1. linux
+2. windows
+3. darwin
+default choice: [1]:
+
+Trying to fetch the default region based on ec2 metadata...
+I! imds retry client will retry 1 timesAre you using EC2 or On-Premises hosts?
+1. EC2
+2. On-Premises
+default choice: [1]:
+
+Which user are you planning to run the agent?
+1. cwagent
+2. root
+3. others
+default choice: [1]:
+
+Do you want to turn on StatsD daemon?
+1. yes
+2. no
+default choice: [1]:
+
+Which port do you want StatsD daemon to listen to?
+default choice: [8125]
+
+What is the collect interval for StatsD daemon?
+1. 10s
+2. 30s
+3. 60s
+default choice: [1]:
+
+What is the aggregation interval for metrics collected by StatsD daemon?
+1. Do not aggregate
+2. 10s
+3. 30s
+4. 60s
+default choice: [4]:
+
+Do you want to monitor metrics from CollectD? WARNING: CollectD must be installed or the Agent will fail to start
+1. yes
+2. no
+default choice: [1]:
+2
+Do you want to monitor any host metrics? e.g. CPU, memory, etc.
+1. yes
+2. no
+default choice: [1]:
+
+Do you want to monitor cpu metrics per core?
+1. yes
+2. no
+default choice: [1]:
+
+Do you want to add ec2 dimensions (ImageId, InstanceId, InstanceType, AutoScalingGroupName) into all of your metrics if the info is available?
+1. yes
+2. no
+default choice: [1]:
+
+Do you want to aggregate ec2 dimensions (InstanceId)?
+1. yes
+2. no
+default choice: [1]:
+
+Would you like to collect your metrics at high resolution (sub-minute resolution)? This enables sub-minute resolution for all metrics, but you can customize for specific metrics in the output json file.
+1. 1s
+2. 10s
+3. 30s
+4. 60s
+default choice: [4]:
+
+Which default metrics config do you want?
+1. Basic
+2. Standard
+3. Advanced
+4. None
+default choice: [1]:
+
+Current config as follows:
+{
+        "agent": {
+                "metrics_collection_interval": 60,
+                "run_as_user": "cwagent"
+        },
+        "metrics": {
+                "aggregation_dimensions": [
+                        [
+                                "InstanceId"
+                        ]
+                ],
+                "append_dimensions": {
+                        "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
+                        "ImageId": "${aws:ImageId}",
+                        "InstanceId": "${aws:InstanceId}",
+                        "InstanceType": "${aws:InstanceType}"
+                },
+                "metrics_collected": {
+                        "disk": {
+                                "measurement": [
+                                        "used_percent"
+                                ],
+                                "metrics_collection_interval": 60,
+                                "resources": [
+                                        "*"
+                                ]
+                        },
+                        "mem": {
+                                "measurement": [
+                                        "mem_used_percent"
+                                ],
+                                "metrics_collection_interval": 60
+                        },
+                        "statsd": {
+                                "metrics_aggregation_interval": 60,
+                                "metrics_collection_interval": 10,
+                                "service_address": ":8125"
+                        }
+                }
+        }
+}
+Are you satisfied with the above config? Note: it can be manually customized after the wizard completes to add additional items.
+1. yes
+2. no
+default choice: [1]:
+
+Do you have any existing CloudWatch Log Agent (http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html) configuration file to import for migration?
+1. yes
+2. no
+default choice: [2]:
+
+Do you want to monitor any log files?
+1. yes
+2. no
+default choice: [1]:
+
+Log file path:
+/var/log/httpd/access_log
+Log group name:
+default choice: [access_log]
+
+Log group class:
+1. STANDARD
+2. INFREQUENT_ACCESS
+default choice: [1]:
+
+Log stream name:
+default choice: [{instance_id}]
+
+Log Group Retention in days
+1. -1
+2. 1
+3. 3
+4. 5
+5. 7
+6. 14
+7. 30
+8. 60
+9. 90
+10. 120
+11. 150
+12. 180
+13. 365
+14. 400
+15. 545
+16. 731
+17. 1096
+18. 1827
+19. 2192
+20. 2557
+21. 2922
+22. 3288
+23. 3653
+default choice: [1]:
+
+Do you want to specify any additional log files to monitor?
+1. yes
+2. no
+default choice: [1]:
+2
+Do you want the CloudWatch agent to also retrieve X-ray traces?
+1. yes
+2. no
+default choice: [1]:
+
+Do you have an existing X-Ray Daemon configuration file to import for migration?
+1. yes
+2. no
+default choice: [1]:
+
+What is the file path for the existing X-Ray Daemon configuration file?
+
+There was an error reading X-Ray Daemon config file. Using default traces configurations
+Current Traces Configurations:
+{
+        "traces": {
+                "traces_collected": {
+                        "xray": {
+                                "bind_address": "127.0.0.1:2000",
+                                "tcp_proxy": {
+                                        "bind_address": "127.0.0.1:2000"
+                                }
+                        }
+                },
+                "concurrency": 8,
+                "buffer_size_mb": 3,
+                "insecure": false
+        }
+}
+Enter a number of the field you would like to update (or 0 to exit)
+0: Keep this configuration and exit
+1: UDP BindAddress
+2: TCP BindAddress
+3: concurrency
+4: buffer_size_mb
+5: resource_arn
+6: local_mode
+7: insecure
+8: role_arn
+9: endpoint_override
+10: region_override
+11: proxy_override
+
+
+Existing config JSON identified and copied to:  /opt/aws/amazon-cloudwatch-agent/etc/backup-configs
+Saved config file to /opt/aws/amazon-cloudwatch-agent/bin/config.json successfully.
+Current config as follows:
+{
+        "agent": {
+                "metrics_collection_interval": 60,
+                "run_as_user": "cwagent"
+        },
+        "logs": {
+                "logs_collected": {
+                        "files": {
+                                "collect_list": [
+                                        {
+                                                "file_path": "",
+                                                "log_group_class": "STANDARD",
+                                                "log_group_name": ".",
+                                                "log_stream_name": "{instance_id}",
+                                                "retention_in_days": -1
+                                        },
+                                        {
+                                                "file_path": "/var/log/httpd/access_log",
+                                                "log_group_class": "STANDARD",
+                                                "log_group_name": "access_log",
+                                                "log_stream_name": "{instance_id}",
+                                                "retention_in_days": -1
+                                        },
+                                        {
+                                                "file_path": "",
+                                                "log_group_class": "STANDARD",
+                                                "log_group_name": ".",
+                                                "log_stream_name": "{instance_id}",
+                                                "retention_in_days": -1
+                                        }
+                                ]
+                        }
+                }
+        },
+        "metrics": {
+                "aggregation_dimensions": [
+                        [
+                                "InstanceId"
+                        ]
+                ],
+                "append_dimensions": {
+                        "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
+                        "ImageId": "${aws:ImageId}",
+                        "InstanceId": "${aws:InstanceId}",
+                        "InstanceType": "${aws:InstanceType}"
+                },
+                "metrics_collected": {
+                        "disk": {
+                                "measurement": [
+                                        "used_percent"
+                                ],
+                                "metrics_collection_interval": 60,
+                                "resources": [
+                                        "*"
+                                ]
+                        },
+                        "mem": {
+                                "measurement": [
+                                        "mem_used_percent"
+                                ],
+                                "metrics_collection_interval": 60
+                        },
+                        "statsd": {
+                                "metrics_aggregation_interval": 60,
+                                "metrics_collection_interval": 10,
+                                "service_address": ":8125"
+                        }
+                }
+        },
+        "traces": {
+                "buffer_size_mb": 3,
+                "concurrency": 8,
+                "insecure": false,
+                "traces_collected": {
+                        "xray": {
+                                "bind_address": "127.0.0.1:2000",
+                                "tcp_proxy": {
+                                        "bind_address": "127.0.0.1:2000"
+                                }
+                        }
+                }
+        }
+}
+Please check the above content of the config.
+The config file is also located at /opt/aws/amazon-cloudwatch-agent/bin/config.json.
+Edit it manually if needed.
+Do you want to store the config in the SSM parameter store?
+1. yes
+2. no
+default choice: [1]:
+2
+Program exits now.
+
+
+cd /opt/aws/amazon-cloudwatch-agent/bin/
+cat config.json
+
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+-a fetch-config -m ec2 \
+-c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json \
+-s
+
+
+
+use only this :->>> sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a status -m ec2
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a stop -m ec2
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a start -m ec2
+
+go to cloudwatch logs section
+
+click on Log groups
+
+click on access_log
+
+click on Log stream
+you will se your event live
+
+Metric filters (it fitter that one type of error comes how many times)
+select you log stream
+click on Create alarm
+
+In Filter pattern
+type your error "404"
+select log data to test
+then click on Test pattern
+
+next
+
+filter name :- give any name 
+Metric namespace :- 404ns
+Metrix name :- 404 metric
+Metric Value 1
+next
+
+create metric filter
+
+
+Go to Metrics section
+click on All Metrics
+after some time, your will see your custom namespece in your
+Browse section
+
+
+use this namespace to create an alarm 
+so you want agar 10 se jayda 404 error a jaye to mera instance band ho jaye aur mujhe notification mil jaye 
+
+create alarm 
+click on select metric
+Statistic :- Sum
+Whenever 404metric is......:-... Greater
+then...:---.. 10
+next
+
+add name and description
+alarm name 404alarm
+description :-404 error
+next
+click on create alarm
+
+
+create alarm 
+click on select metric
+Statistic :- Average
+Whenever 404metric is......:-... Greater
+then...:---.. 90
+next
+
+add name and description
+alarm name 404alarm
+description :-404 error
+next
+click on create alarm
+
+
+END !!!!!!!!!!!!!!!!!

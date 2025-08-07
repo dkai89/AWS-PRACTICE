@@ -1,0 +1,72 @@
+USER GROUP is nothing but a bundle of IAM users. Give allowabel permission to several IAM users in one way.
+
+To create a user group just follow the below steps.
+go to user gourps
+click on Create group
+User group name:- give any name 
+Add users to the group - Optional (1) :- choose IAMuser 
+
+Attach permissions policies - Optional :- choose any permission policy 
+I choosed EC2fullaccess
+click on Create user group
+
+Login your IAM user into other browser and check it to insure that, it is work perfectly.
+
+This is all about user groups
+------------------------------------------
+
+Roles is temporary access to your account. when any maintainace needed than this role used.
+
+Roles have two terms
+1. Trust policy:- Who can take this role?
+2. permission policy :- it is defined as what power will be given after taking role.
+
+go to Roles
+click on Create role
+
+Trusted entity type
+choose :- Custom trust policy
+click on Next
+Add permissions:- AmazonS3FullAccess
+
+Next
+
+Role name:-buddyrole
+Description:- this is my buddyrole
+
+Trust policy
+Principal": {}, (paste your IAM user arn) 
+LIKE this ( "AWS": "arn:aws:iam::167349173424:user/my_emp")
+
+your whole script look like this 
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "Statement1",
+			"Effect": "Allow",
+			"Principal": {
+			    "AWS": "arn:aws:iam::167349173424:user/my_emp"
+			    
+			},
+			"Action": "sts:AssumeRole"
+		}
+	]
+}
+
+click on next 
+click on next 
+click on Create role
+ if Role name show already exist then give new name then click create role
+remove your IAM user in your user group
+Go to your IAM user browser than click top right IAM user name 
+then click on Switch role
+Account ID:-paste your aws account id 
+
+Display name - optional :-67567464 (give any name as you wish)
+Display color - optional :- (choose any as you like)
+click on Switch Role
+you can access your role for some time, as your boss mention in your role.
+
+that it !!!!!!
+
