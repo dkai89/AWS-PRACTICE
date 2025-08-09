@@ -1,0 +1,349 @@
+Assingments 1
+
+Create 4 IAM Users named 'Dev1', 'Dev2', 'Test1' and 'Test2'.
+Go to your aws account sign in as root user
+Go IAM service.
+click on users 
+click on create users
+User name :- Dev1
+checked this box "Provide user access to the AWS Management Console - optional".
+User type :- I want to create an IAM user
+Console password :- Custom password
+Dev1@123
+uncheck this box "Users must create a new password at next sign-in - Recommended"
+click on next
+Permissions options :- Attach policies directly
+next
+click on Create user
+click on Download .csv file
+
+click on users 
+click on create users
+User name :- Dev2
+checked this box "Provide user access to the AWS Management Console - optional".
+User type :- I want to create an IAM user
+Console password :- Custom password
+Dev1@123
+uncheck this box "Users must create a new password at next sign-in - Recommended"
+click on next
+Permissions options :- Attach policies directly
+next
+click on Create user
+click on Download .csv file (No need to download again and again, if your  password is same)
+
+
+click on users 
+click on create users
+User name :- Test1
+checked this box "Provide user access to the AWS Management Console - optional".
+User type :- I want to create an IAM user
+Console password :- Custom password
+Dev1@123
+uncheck this box "Users must create a new password at next sign-in - Recommended"
+click on next
+Permissions options :- Attach policies directly
+next
+click on Create user
+click on Download .csv file (No need to download again and again, if your  password is same)
+
+click on users 
+click on create users
+User name :- Test2
+checked this box "Provide user access to the AWS Management Console - optional".
+User type :- I want to create an IAM user
+Console password :- Custom password
+Dev1@123
+uncheck this box "Users must create a new password at next sign-in - Recommended"
+click on next
+Permissions options :- Attach policies directly
+next
+click on Create user
+click on Download .csv file (No need to download again and again, if your  password is same)
+
+
+Create 2 user groups named as "Dev Team" and "Ops Team".
+
+In Access Management
+click on User groups
+click on Create group
+User group name:- Dev_Team
+
+Add users to the group - Optional:- choose Dev1 and Dev2.
+
+click on Create user group
+
+In Access Management
+click on User groups
+click on Create group
+User group name:- Ops_Team
+
+Add users to the group - Optional:- choose Dev1, Test1 and Test2.
+
+click on Create user group
+
+
+Assingments 2
+
+1. Create policy number 1 which lets the users to:
+a. Access S3 completely
+b. Only create EC2 instances
+c. Full access to RDS
+
+
+In Access Management 
+
+click on Policies
+click on Create policy
+
+Select a service
+Service :- S3 
+Actions allowed :- Manual actions checked the box "All S3 actions (s3:*)s"
+Resources :- All
+click on Add more permissions
+
+servies :- RDS
+Actions allowed :- Manual actions checked the box "All S3 actions (s3:*)s"
+Resources :- All
+click on Add more permissions
+
+search :- DescribeInstances, RunInstances, TerminateInstances, StopInstances, StartInstances, DescribeImages, DescribeKeyPairs,
+DescribeSecurityGroups, DescribeSubnets, DescribeVpcs, CreateSecurityGroup, AuthorizeSecurityGroupIngress, AuthorizeSecurityGroupEgress,
+CreateTags, CreateVolume, AttachVolume, DeleteVolume.
+
+Resources :- All
+click on Next
+
+
+Policy name: Policy_Number1
+click on Create policy
+
+
+click on Create policy
+
+services :- CloudWatch
+select this :- All CloudWatch actions (cloudwatch:*)
+Resources:-all
+click on Add more permissions
+
+services :-  Billing
+select this :- All Billing actions (billing:*)
+Resources:-all
+click on Add more permissions
+
+services :- EC2
+select this "List (Selected 194/194)"
+click on "All list actions"
+Resources:-all
+click on Add more permissions
+
+services :- S3
+select this "List (Selected 16/16)"
+click on "All list actions"
+Resources:-all
+Next
+
+
+if you  are getting error do the below steps 
+
+Policy editor :-JSON
+Copy the below content and paste in the editor 
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "FullCloudWatchAccess",
+            "Effect": "Allow",
+            "Action": "cloudwatch:*",
+            "Resource": "*"
+        },
+        {
+            "Sid": "FullBillingAccess",
+            "Effect": "Allow",
+            "Action": [
+                "aws-portal:*",
+                "budgets:*",
+                "cur:*",
+                "ce:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ListEC2Only",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "ListS3Only",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListAllMyBuckets",
+                "s3:ListBucket"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+
+next
+click on Create policy
+
+
+attach these policies to users groups
+
+
+Attach policy number 1 to the Dev Team from task 1
+
+go to the user groups 
+click on your Dev team
+go to Permissions
+click on add permissions
+
+Other permission policies:- policy_number1
+select this
+click on attach policy 
+
+
+Attach policy number 2 to Ops team from Task 1
+
+go to the user groups 
+click on your Ops Team
+go to Permissions
+click on add permissions
+
+Other permission policies:- policy_number2
+select this
+click on attach policy 
+
+
+Assingment3
+
+click on Roles
+click on create role
+
+Trusted entity type
+
+select :- Custom trust policy
+
+Note:- To find out the arn's click on user click on dev1 and dev2, In Top , you will see the arn's of 
+that users copy that paste them below script.
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "arn:aws:iam::167349173424:user/Dev1",
+                    "arn:aws:iam::167349173424:user/Dev2"
+                ]
+            },
+            "Action": "sts:AssumeRole"
+        }
+    ]
+}
+
+
+Next
+Add permissions
+
+AmazonEC2FullAccess
+mazonDynamoDBFullAccess
+
+next
+
+Role name:- Role_ec2_dynmo 
+click on Create role
+
+Login into user1 and shift to the role to test out the feature.
+
+
+
+Cloudwatch :- CloudWatch Dashboard
+Firstly launch a sample instance name as "cw". allow all traffice
+
+Dashboards → Create dashboard
+
+name:- EC2-Monitoring-Dashboard
+
+Widget type:- line.
+
+next
+
+Metric → EC2 → Per-Instance Metrics →Copy your instance id paste here on search bar →Enter → select CPUUtilization
+click on Create widget
+
+click on "+"Add to dashboard.
+
+
+Again Add widget
+
+Widget type: line
+next
+
+Metric → EC2 → Per-Instance Metrics → Copy your instance id paste here on search bar →Enter → NetworkIn, Netwokout
+click on Create widget
+
+Click Save 
+
+
+us_east-1 region (N.virginia)
+Alarms
+Click on Billing
+click on create alarm
+click Select metric
+click on Billing
+click on Total Estimated Charge 
+click on USD
+click on Select metric
+
+Period:-5 Minutes
+than… :-500
+
+click on next 
+
+Send a notification to the following SNS topic
+select Create new topic
+Create a new topic… :-BillingAlertsTopic
+
+Email endpoints that will receive the notification… :-xyz123@gmail.com   #go to your email id and confirm it to receive alert
+
+click on Create topic
+
+Alarm name :-Billing_Above_500
+Next
+Create alarm
+
+you need to instance in N.Veriginia region
+Firstly launch a sample instance name as "cw1". allow all traffice
+Alarms
+click on In Alarm
+click on Create Alarm
+click on Select metric
+Select metric →
+
+EC2 → Per-Instance Metrics → [Select Instance ID] → CPUUtilization
+Statistic:- Maximum
+Period:- 5 minutes
+than…:-65
+
+Send a notification to the following SNS topic
+select Create new topic
+Create a new topic… :-EC2CPUAlerts
+
+Email endpoints that will receive the notification… :-xyz123@gmail.com   #go to your email id and confirm it to receive alert
+
+click on Create topic
+
+Alarm name :-EC2_CPU_Above_65
+Next
+Create alarm
+
+
+
+
+END!!!!!!!!!!!!
